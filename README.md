@@ -15,61 +15,39 @@ To write a YACC program to recognize the grammar anb where n>=10.
 # PROGRAM
 
 ```
-%{
-#include "y.tab.h"
-%}
-
-%%
-
-"int" { return INT; } 
-"float" { return FLOAT; }
-"double" { return DOUBLE; }
-
-[a-zA-Z][a-zA-Z0-9]* {
-printf("\nIdentifier is %s", yytext); return ID;
-}
-
-. { return yytext[0]; }
-
-\n { return 0; }
-
-%%
-
-int yywrap() 
-{ 
-return 1;
-}
-```
-```
-%{
-#include "y.tab.h"
-%}
-
-%%
-
-"int" { return INT; } 
-"float" { return FLOAT; }
-"double" { return DOUBLE; }
-
-[a-zA-Z][a-zA-Z0-9]* {
-printf("\nIdentifier is %s", yytext); return ID;
-}
-
-. { return yytext[0]; }
-
-\n { return 0; }
-
-%%
-
-int yywrap() 
-{ 
-return 1;
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char str[100];
+    int i = 0;
+    printf("Enter the string: ");
+    scanf("%s", str);
+    // Check if first character is 'a'
+    if (str[0] != 'a') {
+        printf("Invalid: string must start with 'a'\n");
+        return 0;
+    }
+    // Check if the rest of the characters are all 'b'
+    for (i = 1; str[i] != '\0'; i++) {
+        if (str[i] != 'b') {
+            printf("Invalid: all characters after 'a' must be 'b'\n");
+            return 0;
+        }
+    }
+    // Check if there are at least 10 'b's
+    int b_count = strlen(str) - 1;
+    if (b_count >= 10) {
+        printf("Valid string: matches anb where n >= 10\n");
+    } else {
+        printf("Invalid: number of 'b's is less than 10 (found %d)\n", b_count);
+    }
+    return 0;
 }
 ```
 
 # OUTPUT
 
-![image](https://github.com/user-attachments/assets/ca873c1c-c52f-4ed5-b5a1-f914887cf3f1)
+![image](https://github.com/user-attachments/assets/3833d67b-9787-4793-bfd6-e9a14fbaeb0a)
 
 
 # RESULT
